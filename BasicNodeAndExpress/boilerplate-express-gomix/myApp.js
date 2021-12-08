@@ -2,9 +2,14 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 
-app.use('/public', express.static(__dirname+'/public'));
+app.use('/', (req, res, next) => {
+    console.log(req.method + ' ' + req.path + ' - ' + req.ip);
+    next();
+})
 
-app.get('/', function(req, res){
+app.use('/public', express.static(__dirname + '/public'));
+
+app.get('/', function (req, res) {
     // res.send("Hello Express");
     // console.log(__dirname + '/views/index.html');
     res.sendFile(__dirname + '/views/index.html');
@@ -15,8 +20,8 @@ app.get('/json', (req, res) => {
     let resText = "Hello json"
     if (process.env.MESSAGE_STYLE === 'uppercase') {
         resText = resText.toUpperCase();
-    } 
-    res.json({"message": resText});
+    }
+    res.json({ "message": resText });
 })
 
 
@@ -51,4 +56,4 @@ app.get('/json', (req, res) => {
 
 
 
- module.exports = app;
+module.exports = app;
