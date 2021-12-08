@@ -33,6 +33,7 @@ app.get('/now', function (req, res, next) {
 });
 
 
+// route parameters
 // route_path: '/user/:userId/book/:bookId'
 // actual_request_URL: '/user/546/book/6754'
 // req.params: {userId: '546', bookId: '6754'}
@@ -41,8 +42,19 @@ app.get('/:word/echo', (req, res) => {
 });
 
 
-
-
+// query parameters
+// route_path: '/library'
+// actual_request_URL: '/library?userId=546&bookId=6754'
+// req.query: {userId: '546', bookId: '6754'}
+// ?first=firstname&last=lastname
+app.get('/name', (req, res) => {
+    // fullname = req.query.first + ' ' + req.query.last;
+    // res.json({name: fullname});
+    // destructure and rename the keys
+    const {first: firstName, last: lastName} = req.query;
+    // use template literals fo form a formatted string
+    res.json({name: `${firstName} ${lastName}`});
+});
 
 
 
