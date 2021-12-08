@@ -3,7 +3,9 @@ const { Model } = require('mongoose');
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 mongoose.connect(process.env.MONGO_URI,
-  { useNewUrlParser: true, useUnifiedTopology: true });
+  { useNewUrlParser: true });
+
+console.log('mongoose.connection.readyState: ' + mongoose.connection.readyState);
 
 const personSchema = new Schema({
   name: { type: String, required: true },
@@ -81,7 +83,10 @@ const findAndUpdate = (personName, done) => {
 };
 
 const removeById = (personId, done) => {
-  done(null /*, data*/);
+  Person.findByIdAndRemove(personId, (err, data)=>{
+    if (err) return console.log(err);
+    done(null, data);
+  });
 };
 
 const removeManyPeople = (done) => {
