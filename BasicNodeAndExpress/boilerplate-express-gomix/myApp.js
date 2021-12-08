@@ -33,7 +33,12 @@ app.get('/now', function (req, res, next) {
 });
 
 
-
+// route_path: '/user/:userId/book/:bookId'
+// actual_request_URL: '/user/546/book/6754'
+// req.params: {userId: '546', bookId: '6754'}
+app.get('/:word/echo', (req, res) => {
+    res.json({echo: req.params.word});
+});
 
 
 
