@@ -6,7 +6,7 @@ mongoose.connect(process.env.MONGO_URI,
   { useNewUrlParser: true, useUnifiedTopology: true });
 
 const personSchema = new Schema({
-  name: {type: String, required: true},
+  name: { type: String, required: true },
   age: Number,
   favoriteFoods: [String]
 });
@@ -28,7 +28,7 @@ const createAndSavePerson = (done) => {
 };
 
 const createManyPeople = (arrayOfPeople, done) => {
-  Person.create(arrayOfPeople, (err, people)=>{
+  Person.create(arrayOfPeople, (err, people) => {
     if (err) {
       return console.log(err);
     }
@@ -37,14 +37,17 @@ const createManyPeople = (arrayOfPeople, done) => {
 };
 
 const findPeopleByName = (personName, done) => {
-  Person.find({name: personName}, (err, personFound)=>{
+  Person.find({ name: personName }, (err, personFound) => {
     if (err) return console.log(err);
-    done(null, peopersonFoundple);
-  })
+    done(null, personFound);
+  });
 };
 
 const findOneByFood = (food, done) => {
-  done(null /*, data*/);
+  Person.findOne({ favoriteFoods: food }, (err, data) => {
+    if (err) return console.log(err);
+    done(null, data);
+  });
 };
 
 const findPersonById = (personId, done) => {
