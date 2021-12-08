@@ -20,18 +20,14 @@ const createAndSavePerson = (done) => {
     favoriteFoods: ['carrot', 'cabbage']
   });
   document.save((err, data) => {
-    if (err) {
-      return done(err);
-    }
+    if (err) return done(err);
     done(null, data);
   });
 };
 
 const createManyPeople = (arrayOfPeople, done) => {
   Person.create(arrayOfPeople, (err, people) => {
-    if (err) {
-      return console.log(err);
-    }
+    if (err) return console.log(err);
     done(null, people);
   });
 };
@@ -51,7 +47,14 @@ const findOneByFood = (food, done) => {
 };
 
 const findPersonById = (personId, done) => {
-  done(null /*, data*/);
+  // Person.findOne({ _id: personId }, (err, data) => {
+  //   if (err) return console.log(err);
+  //   done(null, data);
+  // });
+  Person.findById(personId, function (err, data) {
+    if (err) return console.log(err);
+    done(null, data);
+  });
 };
 
 const findEditThenSave = (personId, done) => {
